@@ -1,0 +1,80 @@
+/*
+  FRACTION GRID
+  Fixed gutter, fluid width grid based on fractions
+  Infinite columns, nesting, overrides, etc.
+  Inspired by http://builtbyboon.com/blog/proportional-grids
+  Note: use lowest common denominator, e.g. 1/6 rather than 2/12
+*/
+
+// @TODO: Option to float right instead of left in fgrid-col
+// @TODO: Reset for push/pull
+// @TODO: Inline-block support (reset space w/ font-size)
+// @TODO: Flexbox support (w/ fallback?)
+// @TODO: Centre align on grid
+// @TODO: IE8?
+
+$w-gutter: 20px !default;
+$w-max: 1000px !default;
+
+// FGRID-FRACTION
+// Generate % width from fraction, e.g. `width: fgrid-fraction(1/2)` will output `width: 50%`
+// Assumes `$w-max` as grid size but can be overridden as needed
+// Optionally calculate fraction as px width, e.g. `width: fgrid-fraction(1/2,$unit:px)` will output `width: 480px`
+@function fgrid-fraction($fraction,$container:$w-max,$unit:false) {
+  $px-width: $container*$fraction;
+  @if ($unit == px) {
+    @return $px-width;
+  } @else {
+    @return percentage($px-width/$container);
+  }
+}
+
+// FGRID-CONTAINER
+// This needs to be applied to the parent element of your columns
+// Use `fgrid-container($reset:true)` to reset between breakpoints
+// Note: uses lazy clearfix, replace as required
+@mixin fgrid-container($gutter:$w-gutter,$reset:false) {
+  @if ($reset) {
+    margin-left: 0;
+    &:after { content: normal; display: inline; clear: none; } // reset clearfix
+  } @else {
+    margin-left: #{-$gutter};
+    &:after { content: ""; display: table; clear: both; } // clearfix
+  }
+}
+
+// FGRID-COL
+// Infinite grid possibilities using fractions, e.g. `@include fgrid-col(1/12)` will be 1 of 12 cols, `@include fgrid-col(1/6)` will be 2 of 12 cols, etc.
+@mixin fgrid-col($fraction:1/1,$gutter:$w-gutter,$reset:false) {
+  @if ($reset) {
+    float: none;
+    padding-left: 0;
+    width: auto;
+  } @else {
+    float: left;
+    padding-left: $gutter;
+    width: fgrid-fraction($fraction);
+  }
+}
+
+// FGRID-PUSH
+// Offset by fraction
+@mixin fgrid-push($fraction:1/1,$direction:left) {
+  @if ($direction == right) {
+    float: right;
+    margin-right: fgrid-fraction($fraction);
+  } @else {
+    margin-left: fgrid-fraction($fraction);
+  }
+}
+
+// FGRID-PULL
+// Negative offset by fraction
+@mixin fgrid-pull($fraction:1/1,$direction:left) {
+  @if ($direction == right) {
+    float: right;
+    margin-right: -(fgrid-fraction($fraction));
+  } @else {
+    margin-left: -(fgrid-fraction($fraction));
+  }
+}
