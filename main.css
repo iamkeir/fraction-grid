@@ -130,11 +130,9 @@ td, th { padding: 0; }
 */
 /* DEMO CLASSES For demonstration only (or if you wish to have class-based grid)
 */
-body { overflow-x: hidden; }
+body { overflow-x: hidden; max-width: 95%; margin: 0 auto; }
 
 * { box-sizing: border-box; }
-
-.page { max-width: 1000px; margin: 0 auto; }
 
 code { display: block; margin: 10px 0; background: #e1e1e1; }
 
