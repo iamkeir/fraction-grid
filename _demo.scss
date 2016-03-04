@@ -10,35 +10,32 @@ code { display: block; margin: 10px 0; background: #e1e1e1; }
 code code { background: #c1c1c1; }
 code code code { background: #a1a1a1; }
 
-.grid { @include fgrid-wrap; } // grid helper
+[data-fg-grid] { @include fgrid-wrap; } // grid helper
 
-.col {
-  // 12 column example... as lowest denominator
-  @include fgrid-col; // 12/12
-  &-11-12 { @include fgrid-col(11/12); } // 11/12
-  &-5-6 { @include fgrid-col(5/6); } // 10/12
-  &-3-4 { @include fgrid-col(3/4); } // 9/12
-  &-2-3 { @include fgrid-col(2/3); } // 8/12
-  &-7-12 { @include fgrid-col(7/12); } // 7/12
-  &-1-2 { @include fgrid-col(1/2); } // 6/12
-  &-5-12 { @include fgrid-col(5/12); } // 5/12
-  &-1-3 { @include fgrid-col(1/3); } // 4/12
-  &-1-4 { @include fgrid-col(1/4); } // 3/12
-  &-1-6 { @include fgrid-col(1/6); } // 2/12
-  &-1-12 { @include fgrid-col(1/12); } // 1/12
-  // ...but, look ma, infinite grids!
-  &-1-5 { @include fgrid-col(4/5); }
-  &-4-5 { @include fgrid-col(1/5); }
-  &-1-7 { @include fgrid-col(1/7); }
-  &-6-7 { @include fgrid-col(6/7); }
-}
+// 12 column example... as lowest denominator
+[data-fg-col] { @include fgrid-col; } // 12/12
+[data-fg-col="11/12"] { @include fgrid-col(11/12); } // 11/12
+[data-fg-col="5/6"] { @include fgrid-col(5/6); } // 10/12
+[data-fg-col="3/4"] { @include fgrid-col(3/4); } // 9/12
+[data-fg-col="2/3"] { @include fgrid-col(2/3); } // 8/12
+[data-fg-col="7/12"] { @include fgrid-col(7/12); } // 7/12
+[data-fg-col="1/2"] { @include fgrid-col(1/2); } // 6/12
+[data-fg-col="5/12"] { @include fgrid-col(5/12); } // 5/12
+[data-fg-col="1/3"] { @include fgrid-col(1/3); } // 4/12
+[data-fg-col="1/4"] { @include fgrid-col(1/4); } // 3/12
+[data-fg-col="1/6"] { @include fgrid-col(1/6); } // 2/12
+[data-fg-col="1/12"] { @include fgrid-col(1/12); } // 1/12
+// ...but, look ma, infinite grids!
+[data-fg-col="1/5"] { @include fgrid-col(4/5); }
+[data-fg-col="4/5"] { @include fgrid-col(1/5); }
+[data-fg-col="1/7"] { @include fgrid-col(1/7); }
+[data-fg-col="6/7"] { @include fgrid-col(6/7); }
 
-.push-1-2 { @include fgrid-offset(1/2); }
-.pull-1-4 { @include fgrid-offset(1/4,pull); }
-.pull-3-4 { @include fgrid-offset(3/4,pull); }
+// offsets
+[data-fg-push="1/2"] { @include fgrid-offset(1/2); }
+[data-fg-pull="1/4"] { @include fgrid-offset(1/4,pull); }
+[data-fg-pull="3/4"] { @include fgrid-offset(3/4,pull); }
 
-.responsive-grid { @media (min-width: 521px) { @include fgrid-wrap; } }
-.responsive-grid-col {
-  @media (min-width: 521px) { @include fgrid-col(1/2); @include fgrid-offset(1/2); }
-  @media (min-width: 769px) { @include fgrid-col(1/4); @include fgrid-offset-reset; }
-}
+// responsive
+@media (min-width: 521px) { [data-fg-col-tablet="1/2"] { @include fgrid-col(1/2); } }
+@media (min-width: 769px) { [data-fg-col-desktop="1/4"] { @include fgrid-col(1/4); } }
