@@ -8,99 +8,96 @@
   </head>
   <body>
 
-    <div class="page">
+    <!-- https://gist.github.com/iamkeir/080cc2595467825c4fde -->
 
-      <!-- https://gist.github.com/iamkeir/080cc2595467825c4fde -->
+    <h1><a href="https://github.com/iamkeir/fraction-grid" title="View on Github">Fraction Grid</a></h1>
 
-      <h1><a href="https://github.com/iamkeir/fraction-grid" title="View on Github">Fraction Grid</a></h1>
+    <p>Fraction-based fluid width grid with fixed width gutters. Fractions rather than columns because fractions will always be true, accurate and predictable regardless of nesting - and offers freedom to change the number of columns on the fly.</p>
+    
+    <p>Inspired by <a href="http://builtbyboon.com/blog/proportional-grids">http://builtbyboon.com/blog/proportional-grids</a></p>
+    
+    <p><em><strong>Note:</strong> classes are for demonstration only - for semantic grid, use mixins or roll your own class sets.</em></p>
+    
+    <hr />
+    
+    <h3>12 column example</h3>
 
-      <p>Fraction-based fluid width grid with fixed width gutters. Fractions rather than columns because fractions will always be true, accurate and predictable regardless of nesting - and offers freedom to change the number of columns on the fly.</p>
-      
-      <p>Inspired by <a href="http://builtbyboon.com/blog/proportional-grids">http://builtbyboon.com/blog/proportional-grids</a></p>
-      
-      <p><em><strong>Note:</strong> classes are for demonstration only - for semantic grid, use mixins or roll your own class sets.</em></p>
-      
-      <hr />
-      
-      <h3>12 column example</h3>
+    <div class="grid">
+      <div class="col-1-12"><code>1/12</code></div><div class="col-11-12"><code>11/12</code></div>
+      <div class="col-1-6"><code>2/12</code></div><div class="col-5-6"><code>10/12</code></div>
+      <div class="col-1-4"><code>3/12</code></div><div class="col-3-4"><code>9/12</code></div>
+      <div class="col-1-3"><code>4/12</code></div><div class="col-2-3"><code>8/12</code></div>
+      <div class="col-5-12"><code>5/12</code></div><div class="col-7-12"><code>7/12</code></div>
+      <div class="col-1-2"><code>6/12</code></div><div class="col-1-2"><code>6/12</code></div>
+    </div>
+    
+    <hr />
 
-      <div class="grid">
-        <div class="col-1-12"><code>1/12</code></div><div class="col-11-12"><code>11/12</code></div>
-        <div class="col-1-6"><code>2/12</code></div><div class="col-5-6"><code>10/12</code></div>
-        <div class="col-1-4"><code>3/12</code></div><div class="col-3-4"><code>9/12</code></div>
-        <div class="col-1-3"><code>4/12</code></div><div class="col-2-3"><code>8/12</code></div>
-        <div class="col-5-12"><code>5/12</code></div><div class="col-7-12"><code>7/12</code></div>
-        <div class="col-1-2"><code>6/12</code></div><div class="col-1-2"><code>6/12</code></div>
-      </div>
-      
-      <hr />
+    <h3>Off-grid</h3>
 
-      <h3>Off-grid</h3>
+    <div class="grid">
+      <div class="col-1-5"><code>1/5</code></div><div class="col-4-5"><code>4/5</code></div>
+      <div class="col-1-7"><code>1/7</code></div><div class="col-6-7"><code>6/7</code></div>
+    </div>
+    
+    <hr />
 
-      <div class="grid">
-        <div class="col-1-5"><code>1/5</code></div><div class="col-4-5"><code>4/5</code></div>
-        <div class="col-1-7"><code>1/7</code></div><div class="col-6-7"><code>6/7</code></div>
-      </div>
-      
-      <hr />
+    <h3>Infinite nesting</h3>
 
-      <h3>Infinite nesting</h3>
-
-      <div class="grid">
-        <div class="col">
-          <code>
-            12/12
-            <div class="grid">
-              <div class="col-1-2">
-                <code>
-                  6/12 (1/2)
-                  <div class="grid">
-                    <div class="col-1-3"><code>2/12 (3/4)</code></div>
-                    <div class="col-1-3"><code>2/12 (3/4)</code></div>
-                    <div class="col-1-3"><code>2/12 (3/4)</code></div>
-                  </div>
-                </code>
-              </div>
-              <div class="col-1-2">
-                <code>
-                  6/12 (1/2)
-                  <div class="grid">
-                    <div class="col-1-2"><code>3/12 (3/4)</code></div>
-                    <div class="col-1-2"><code>3/12 (3/4)</code></div>
-                  </div>
-                </code>
-              </div>
+    <div class="grid">
+      <div class="col">
+        <code>
+          12/12
+          <div class="grid">
+            <div class="col-1-2">
+              <code>
+                6/12 (1/2)
+                <div class="grid">
+                  <div class="col-1-3"><code>2/12 (3/4)</code></div>
+                  <div class="col-1-3"><code>2/12 (3/4)</code></div>
+                  <div class="col-1-3"><code>2/12 (3/4)</code></div>
+                </div>
+              </code>
             </div>
-          </code>
-        </div>
+            <div class="col-1-2">
+              <code>
+                6/12 (1/2)
+                <div class="grid">
+                  <div class="col-1-2"><code>3/12 (3/4)</code></div>
+                  <div class="col-1-2"><code>3/12 (3/4)</code></div>
+                </div>
+              </code>
+            </div>
+          </div>
+        </code>
       </div>
-      
-      <hr />
-      
-      <h3>Offsets</h3>
+    </div>
+    
+    <hr />
+    
+    <h3>Offsets</h3>
 
-      <div class="grid">
-        <div class="col-1-2 push-1-2"><code>6/12, push 6/12 (1st)</code></div>
-        <div class="col-1-4 pull-1-4"><code>3/12, pull 3/12 (2nd)</code></div>
-        <div class="col-1-4 pull-3-4"><code>3/12, pull 9/12 (3rd)</code></div>
-      </div>
+    <div class="grid">
+      <div class="col-1-2 push-1-2"><code>6/12, push 6/12 (1st)</code></div>
+      <div class="col-1-4 pull-1-4"><code>3/12, pull 3/12 (2nd)</code></div>
+      <div class="col-1-4 pull-3-4"><code>3/12, pull 9/12 (3rd)</code></div>
+    </div>
 
-      <hr />
-      
-      <h3>Responsive</h3>
+    <hr />
+    
+    <h3>Responsive</h3>
 
-      <div class="responsive-grid">
-        <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
-        <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
-        <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
-        <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
-      </div>
+    <div class="responsive-grid">
+      <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
+      <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
+      <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
+      <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
+    </div>
 
-      <hr />
-      
-      <p><small>Built by <a href="http://twitter.com/iamkeir">@iamkeir</a>. Be excellent to each other.</small></p>
+    <hr />
+    
+    <p><small>Built by <a href="http://twitter.com/iamkeir">@iamkeir</a>. Be excellent to each other.</small></p>
 
-    </div><!--/page-->
 
   </body>
 </html>
