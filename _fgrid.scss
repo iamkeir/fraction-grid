@@ -63,14 +63,17 @@ $w-max: 1000px !default;
 // FGRID-OFFSET
 // Offset by fraction
 @mixin fgrid-offset($fraction:1/1,$mode:push,$direction:left) {  
+  position: relative;
   @if ($mode == pull) {
-    margin-#{$direction}: -(fgrid-fraction($fraction)); // pull
+    #{$direction}: -(fgrid-fraction($fraction)); // pull
   } @else {
-    margin-#{$direction}: fgrid-fraction($fraction); // push
+    #{$direction}: fgrid-fraction($fraction); // push
   }
 }
 
 // FGRID-OFFSET-RESET
-@mixin fgrid-offset-reset($direction:left) {
-  margin-#{$direction}: 0;
+@mixin fgrid-offset-reset() {
+  position: static;
+  left: auto;
+  right: auto;
 }

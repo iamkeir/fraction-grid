@@ -162,12 +162,12 @@ code code code { background: #a1a1a1; }
 .col-1-7 { float: left; padding-left: 20px; width: 14.2857142857%; }
 .col-6-7 { float: left; padding-left: 20px; width: 85.7142857143%; }
 
-.push-1-12 { margin-left: 8.3333333333%; }
+.push-1-2 { position: relative; left: 50%; }
 
-.pull-1-12 { margin-left: -8.3333333333%; }
+.pull-1-2 { position: relative; left: -50%; }
 
 @media (min-width: 521px) { .responsive-grid { margin-left: -20px; }
   .responsive-grid:after { content: ""; display: table; clear: both; } }
 
-@media (min-width: 521px) { .responsive-grid-col { float: left; padding-left: 20px; width: 50%; margin-left: 50%; } }
-@media (min-width: 769px) { .responsive-grid-col { float: left; padding-left: 20px; width: 25%; margin-left: 0; } }
+@media (min-width: 521px) { .responsive-grid-col { float: left; padding-left: 20px; width: 50%; position: relative; left: 50%; } }
+@media (min-width: 769px) { .responsive-grid-col { float: left; padding-left: 20px; width: 25%; position: static; left: auto; right: auto; } }

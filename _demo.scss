@@ -33,8 +33,8 @@ code code code { background: #a1a1a1; }
   &-6-7 { @include fgrid-col(6/7); }
 }
 
-.push { &-1-12 { @include fgrid-offset(1/12); } }
-.pull { &-1-12 { @include fgrid-offset(1/12,pull); } }
+.push { &-1-2 { @include fgrid-offset(1/2); } }
+.pull { &-1-2 { @include fgrid-offset(1/2,pull); } }
 
 .responsive-grid { @media (min-width: 521px) { @include fgrid-wrap; } }
 .responsive-grid-col {
