@@ -10,7 +10,7 @@ code { display: block; margin: 10px 0; background: #e1e1e1; }
 code code { background: #c1c1c1; }
 code code code { background: #a1a1a1; }
 
-.grid { @include fgrid-container; } // grid helper
+.grid { @include fgrid-wrap; } // grid helper
 
 .col {
   // 12 column example... as lowest denominator
@@ -33,14 +33,11 @@ code code code { background: #a1a1a1; }
   &-6-7 { @include fgrid-col(6/7); }
 }
 
-.push-left { &-1-12 { @include fgrid-push(1/12); } }
-.push-right { &-1-12 { @include fgrid-push(1/12,right); } }
+.push { &-1-12 { @include fgrid-offset(1/12); } }
+.pull { &-1-12 { @include fgrid-offset(1/12,pull); } }
 
-.pull-left { &-1-12 { @include fgrid-pull(1/12); } }
-.pull-right { &-1-12 { @include fgrid-pull(1/12,right); } }
-
-.responsive-grid { @media (min-width: 521px) { @include fgrid-container; } }
+.responsive-grid { @media (min-width: 521px) { @include fgrid-wrap; } }
 .responsive-grid-col {
-  @media (min-width: 521px) { @include fgrid-col(1/2); }
-  @media (min-width: 769px) { @include fgrid-col(1/4); }
+  @media (min-width: 521px) { @include fgrid-col(1/2); @include fgrid-offset(1/2); }
+  @media (min-width: 769px) { @include fgrid-col(1/4); @include fgrid-offset-reset; }
 }

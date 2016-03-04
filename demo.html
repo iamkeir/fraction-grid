@@ -14,10 +14,14 @@
 
       <h1>Fraction Grid</h1>
 
-      <p>Fraction-based fluid width grid with fixed width gutters - offers infinite columns, nesting, overrides, etc.</p>
-
-      <p><strong>Note:</strong> classes are for demonstration only - for semantic grid, use mixins.</p>
-
+      <p>Fraction-based fluid width grid with fixed width gutters. Fractions rather than columns because fractions will always be true, accurate and predictable regardless of nesting - and offers freedom to change the number of columns on the fly.</p>
+      
+      <p>Inspired by <a href="http://builtbyboon.com/blog/proportional-grids">http://builtbyboon.com/blog/proportional-grids</a></p>
+      
+      <p><em><strong>Note:</strong> classes are for demonstration only - for semantic grid, use mixins or roll your own class sets.</em></p>
+      
+      <hr />
+      
       <h3>12 column example</h3>
 
       <div class="grid">
@@ -28,6 +32,8 @@
         <div class="col-5-12"><code>5/12</code></div><div class="col-7-12"><code>7/12</code></div>
         <div class="col-1-2"><code>6/12</code></div><div class="col-1-2"><code>6/12</code></div>
       </div>
+      
+      <hr />
 
       <h3>Off-grid</h3>
 
@@ -35,6 +41,8 @@
         <div class="col-1-5"><code>1/5</code></div><div class="col-4-5"><code>4/5</code></div>
         <div class="col-1-7"><code>1/7</code></div><div class="col-6-7"><code>6/7</code></div>
       </div>
+      
+      <hr />
 
       <h3>Infinite nesting</h3>
 
@@ -45,20 +53,20 @@
             <div class="grid">
               <div class="col-1-2">
                 <code>
-                  6/12
+                  6/12 (1/2)
                   <div class="grid">
-                    <div class="col-1-3"><code>2/12</code></div>
-                    <div class="col-1-3"><code>2/12</code></div>
-                    <div class="col-1-3"><code>2/12</code></div>
+                    <div class="col-1-3"><code>2/12 (3/4)</code></div>
+                    <div class="col-1-3"><code>2/12 (3/4)</code></div>
+                    <div class="col-1-3"><code>2/12 (3/4)</code></div>
                   </div>
                 </code>
               </div>
               <div class="col-1-2">
                 <code>
-                  6/12
+                  6/12 (1/2)
                   <div class="grid">
-                    <div class="col-1-2"><code>3/12</code></div>
-                    <div class="col-1-2"><code>3/12</code></div>
+                    <div class="col-1-2"><code>3/12 (3/4)</code></div>
+                    <div class="col-1-2"><code>3/12 (3/4)</code></div>
                   </div>
                 </code>
               </div>
@@ -66,37 +74,33 @@
           </code>
         </div>
       </div>
-
-      <h3>Push</h3>
-
-      <div class="grid">
-        <div class="col-1-2 push-left-1-12"><code>6/12, push left 1/12</code></div>
-      </div>
+      
+      <hr />
+      
+      <h3>Offsets</h3>
 
       <div class="grid">
-        <div class="col-1-2 push-right-1-12"><code>6/12, push right 1/12</code></div>
-      </div>
-
-      <h3>Pull</h3>
-
-      <div class="grid">
-        <div class="col-1-2 pull-left-1-12"><code>6/12, pull left 1/12</code></div>
+        <div class="col-1-2 push-1-12"><code>6/12, push 1/12</code></div>
       </div>
 
       <div class="grid">
-        <div class="col-1-2 pull-right-1-12"><code>6/12, pull right 1/12</code></div>
+        <div class="col-1-2 pull-1-12"><code>6/12, pull 1/12</code></div>
       </div>
 
-      <h3>Breakpoints example (semantic)</h3>
+      <hr />
+      
+      <h3>Responsive</h3>
 
-      <div class="example-responsive-grid">
-        <div class="example-responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
-        <div class="example-responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
-        <div class="example-responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
-        <div class="example-responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
+      <div class="responsive-grid">
+        <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
+        <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
+        <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
+        <div class="responsive-grid-col"><code>12/12, 6/12, 3/12</code></div>
       </div>
 
-      <br />
+      <hr />
+      
+      <p><small>Built by <a href="http://twitter.com/iamkeir">@iamkeir</a>. Be excellent to each other.</small></p>
 
     </div><!--/page-->
 

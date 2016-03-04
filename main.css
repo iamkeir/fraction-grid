@@ -126,7 +126,7 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 td, th { padding: 0; }
 
-/* FRACTION GRID Fixed gutter, fluid width grid based on fractions Infinite columns, nesting, overrides, etc. Inspired by http://builtbyboon.com/blog/proportional-grids Note: use lowest common denominator, e.g. 1/6 rather than 2/12
+/* FRACTION GRID Fixed gutter, fluid width grid based on fractions Note: use lowest common denominator, e.g. 1/6 rather than 2/12
 */
 /* DEMO CLASSES For demonstration only (or if you wish to have class-based grid)
 */
@@ -162,16 +162,12 @@ code code code { background: #a1a1a1; }
 .col-1-7 { float: left; padding-left: 20px; width: 14.2857142857%; }
 .col-6-7 { float: left; padding-left: 20px; width: 85.7142857143%; }
 
-.push-left-1-12 { margin-left: 8.3333333333%; }
+.push-1-12 { margin-left: 8.3333333333%; }
 
-.push-right-1-12 { float: right; margin-right: 8.3333333333%; }
-
-.pull-left-1-12 { margin-left: -8.3333333333%; }
-
-.pull-right-1-12 { float: right; margin-right: -8.3333333333%; }
+.pull-1-12 { margin-left: -8.3333333333%; }
 
 @media (min-width: 521px) { .responsive-grid { margin-left: -20px; }
   .responsive-grid:after { content: ""; display: table; clear: both; } }
 
-@media (min-width: 521px) { .responsive-grid-col { float: left; padding-left: 20px; width: 50%; } }
-@media (min-width: 769px) { .responsive-grid-col { float: left; padding-left: 20px; width: 25%; } }
+@media (min-width: 521px) { .responsive-grid-col { float: left; padding-left: 20px; width: 50%; margin-left: 50%; } }
+@media (min-width: 769px) { .responsive-grid-col { float: left; padding-left: 20px; width: 25%; margin-left: 0; } }

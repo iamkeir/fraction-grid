@@ -1,16 +1,14 @@
 /*
   FRACTION GRID
   Fixed gutter, fluid width grid based on fractions
-  Infinite columns, nesting, overrides, etc.
-  Inspired by http://builtbyboon.com/blog/proportional-grids
   Note: use lowest common denominator, e.g. 1/6 rather than 2/12
 */
 
-// @TODO: Option to float right instead of left in fgrid-col
-// @TODO: Reset for push/pull
+// @TODO: Option to float right instead of left in fgrid-col (plus push/pull)
 // @TODO: Inline-block support (reset space w/ font-size)
 // @TODO: Flexbox support (w/ fallback?)
 // @TODO: Centre align, on grid
+// @TODO: Example of responsive gutters?
 // @TODO: IE8?
 // @TODO: Auto-generate classes from fraction map for class-based grid
 
@@ -30,52 +28,46 @@ $w-max: 1000px !default;
   }
 }
 
-// FGRID-CONTAINER
+// FGRID-WRAP
 // This needs to be applied to the parent element of your columns
-// Use `fgrid-container($reset:true)` to reset between breakpoints
-// Note: uses lazy clearfix, replace as required
-@mixin fgrid-container($gutter:$w-gutter,$reset:false) {
-  @if ($reset) {
-    margin-left: 0;
-    &:after { content: normal; display: inline; clear: none; } // reset clearfix
-  } @else {
-    margin-left: #{-$gutter};
-    &:after { content: ""; display: table; clear: both; } // clearfix
-  }
+@mixin fgrid-wrap($gutter:$w-gutter) {
+  margin-left: #{-$gutter};
+  &:after { content: ""; display: table; clear: both; } // clearfix
+}
+
+// FGRID-WRAP-RESET
+@mixin fgrid-wrap-reset() {
+  margin-left: 0;
+  &:after { content: normal; display: inline; clear: none; } // reset clearfix
 }
 
 // FGRID-COL
-// Infinite grid possibilities using fractions, e.g. `@include fgrid-col(1/12)` will be 1 of 12 cols, `@include fgrid-col(1/6)` will be 2 of 12 cols, etc.
-@mixin fgrid-col($fraction:1/1,$gutter:$w-gutter,$reset:false) {
-  @if ($reset) {
-    float: none;
-    padding-left: 0;
-    width: auto;
-  } @else {
-    float: left;
-    padding-left: $gutter;
-    width: fgrid-fraction($fraction);
-  }
+// Infinite grid possibilities using fractions
+// E.g. `@include fgrid-col(1/12)` will be 1 of 12 cols, `@include fgrid-col(1/6)` will be 2 of 12 cols, etc.
+@mixin fgrid-col($fraction:1/1,$gutter:$w-gutter) {
+  float: left;
+  padding-left: $gutter;
+  width: fgrid-fraction($fraction);
 }
 
-// FGRID-PUSH
+// FGRID-COL-RESET
+@mixin fgrid-col-reset() {
+  float: none;
+  padding-left: 0;
+  width: auto;
+}
+
+// FGRID-OFFSET
 // Offset by fraction
-@mixin fgrid-push($fraction:1/1,$direction:left) {
-  @if ($direction == right) {
-    float: right;
-    margin-right: fgrid-fraction($fraction);
+@mixin fgrid-offset($fraction:1/1,$mode:push,$direction:left) {  
+  @if ($mode == pull) {
+    margin-#{$direction}: -(fgrid-fraction($fraction)); // pull
   } @else {
-    margin-left: fgrid-fraction($fraction);
+    margin-#{$direction}: fgrid-fraction($fraction); // push
   }
 }
 
-// FGRID-PULL
-// Negative offset by fraction
-@mixin fgrid-pull($fraction:1/1,$direction:left) {
-  @if ($direction == right) {
-    float: right;
-    margin-right: -(fgrid-fraction($fraction));
-  } @else {
-    margin-left: -(fgrid-fraction($fraction));
-  }
+// FGRID-OFFSET-RESET
+@mixin fgrid-offset-reset($direction:left) {
+  margin-#{$direction}: 0;
 }
