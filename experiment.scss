@@ -1,0 +1,345 @@
+// -------------
+
+/*
+  FRACTION GRID
+  Fixed gutter, fluid width grid based on fractions
+  Note: use lowest common denominator, e.g. 1/6 rather than 2/12
+*/
+
+// @TODO: RTL/float right (plus push/pull)
+// @TODO: Inline-block support (reset space w/ letter-spacing)
+// @TODO: Centre align, on grid
+
+$fgrid-gutter: 20px !default;
+
+$fgrid-fractions: (
+  '1-1': 1/1,
+  '1-2': 1/2,
+  '1-3': 1/3, '2-3': 2/3,
+  '1-4': 1/4, '3-4': 3/4
+) !default;
+
+// FGRID-FRACTION
+// Generate % width from fraction, e.g. `width: fgrid-fraction(1/2)` will output `width: 50%`
+@function fgrid-fraction($fraction) {
+  @return percentage($fraction);
+
+  // $px-width: $container*$fraction;
+  // @if ($unit == px) {
+  //   @return $px-width;
+  // } @else {
+  //   @return percentage($px-width/$container);
+  // }
+}
+
+// FGRID-WRAP-GUTTER
+// Manages negative gutter on grid wrapper
+@mixin fgrid-wrap-gutter($gutter:$fgrid-gutter) {
+  margin-left: #{-$gutter};
+}
+
+// FGRID-COL-GUTTER
+// Manages gutter on grid column
+@mixin fgrid-col-gutter($gutter:$fgrid-gutter) {
+  padding-left: $gutter;
+}
+
+// FGRID-WRAP
+// Manages grid wrapper (parent element to columns)
+@mixin fgrid-wrap($gutter:$fgrid-gutter) {
+  display: flex;
+  flex-wrap: wrap;
+  @include fgrid-wrap-gutter($gutter);
+  // margin-left: #{-$gutter};
+  // &:after { content: ""; display: table; clear: both; } // clearfix
+}
+
+// FGRID-WRAP-RESET
+@mixin fgrid-wrap-reset() {
+  @include fgrid-wrap-gutter(0);
+  // margin-left: 0;
+  // &:after { content: normal; display: inline; clear: none; } // reset clearfix
+}
+
+// FGRID-COL
+// Infinite grid possibilities using fractions
+// E.g. `@include fgrid-col(1/12)` will be 1 of 12 cols, `@include fgrid-col(1/6)` will be 2 of 12 cols, etc.
+@mixin fgrid-col($fraction:1/1,$gutter:$fgrid-gutter) {
+  // float: left;
+  // padding-left: $gutter;
+  @include fgrid-col-gutter($gutter);
+  width: fgrid-fraction($fraction);
+}
+
+// FGRID-COL-RESET
+@mixin fgrid-col-reset() {
+  // float: none;
+  // padding-left: 0;
+  @include fgrid-col-gutter(0);
+  width: auto;
+}
+
+// FGRID-OFFSET
+// Offset by fraction
+@mixin fgrid-offset($fraction:1/1,$mode:push,$direction:left) {
+  position: relative;
+  @if ($mode == pull) {
+    #{$direction}: -(fgrid-fraction($fraction)); // pull
+  } @else {
+    #{$direction}: fgrid-fraction($fraction); // push
+  }
+}
+
+// FGRID-OFFSET-RESET
+@mixin fgrid-offset-reset() {
+  position: static;
+  left: auto;
+  right: auto;
+}
+
+// FGRID-SETUP
+// Generate class-based grid inc. responsive classes
+
+// $breakpoints: (
+//   0:0, // start
+//   m: 320px, // mobile
+//   mw: 480px, // mobile wide
+//   p: 520px, // phablet
+//   pw: 640px, // phablet wide
+//   t: 768px, // tablet
+//   tw: 1024px, // tablet wide
+//   d: $site-max-width // desktop
+// );
+
+// $fgrid-fractions: (
+//   '1\/1': 1/1,
+//   '1\/2': 1/2,
+//   '1\/3': 1/3, '2\/3': 2/3,
+//   '1\/4': 1/4, '3\/4': 3/4
+// ) !default;
+
+@mixin fgrid-setup($fractions:$fgrid-fractions,$gutter:$fgrid-gutter,$bp-map:false) {
+  
+  if ($bp-map
+    .grid {
+      @include fgrid-wrap;
+      &-reset { @include fgrid-wrap-reset; } // reset
+    }
+
+    .col {
+      @include fgrid-col; // column default 1/1
+      &-reset { @include fgrid-col-reset; } // reset
+    }
+
+    .push, .pull {
+      @include fgrid-offset(); // offset default 1/1
+      &-reset { @include fgrid-offset-reset; } // reset
+    }
+
+    // Fractions
+    @each $fraction-class, $fraction in $fractions { // for each supplied fraction + class
+      .col-#{$fraction-class} { @include fgrid-col($fraction); }
+      .push-#{$fraction-class} { @include fgrid-offset($fraction,push); }
+      .pull-#{$fraction-class} { @include fgrid-offset($fraction,pull); }
+    }
+  }
+
+  // @TODO: Gutters
+
+  // @TODO: Mixin that allows a single class and breakpoint to be supplied, this then reuses that
+}
+
+
+
+
+// @mixin grids-init($class:$grid-namespace,$gutter:$grid-gutter,$breakpoint:false) {
+
+//   @if ($breakpoint) {
+//     @media screen and (min-width: $breakpoint) {
+//       @include grid-config($class,$gutter);
+//       @include grid-setup($class,$gutter);
+//     }
+//   } @else {
+//     @include grid-config($class,$gutter);
+//     @include grid-setup($class,$gutter);
+//   }
+// }
+
+
+// EXAMPLE SETUP
+
+// $fgrid-gutter-half: $fgrid-gutter/2;
+// $fgrid-gutter-double: $fgrid-gutter*2;
+
+// $fgrid-gutters: (
+//   'default': 20px,
+//   'half': 10px,
+//   'double': 40px,
+//   'none': 0
+// );
+
+// .grid-gutter-half {
+//   @include fgrid-wrap-gutter($fgrid-gutter-half);
+//   > .col, > [class*="col"] { @include fgrid-col-gutter($fgrid-gutter-half); }
+// }
+
+// .grid-gutter-double {
+//   @include fgrid-wrap-gutter($fgrid-gutter-double);
+//   > .col, > [class*="col"] { @include fgrid-col-gutter($fgrid-gutter-double); }
+// }
+
+// .grid-gutter-none {
+//   @include fgrid-wrap-gutter(0);
+//   > .col, > [class*="col"] { @include fgrid-col-gutter(0); }
+// }
+
+// .grid-gutter-default {
+//   @include fgrid-wrap-gutter($fgrid-gutter-half);
+//   > .col, > [class*="col"] { @include fgrid-col-gutter($fgrid-gutter-half); }
+// }
+
+.responsive-grid { @media (min-width: 521px) { @include fgrid-wrap; } }
+.responsive-grid-col {
+  @media (min-width: 521px) { @include fgrid-col(1/2); @include fgrid-offset(1/2); }
+  @media (min-width: 769px) { @include fgrid-col(1/4); @include fgrid-offset-reset; }
+}
+
+@include fgrid-setup();
+@include fgrid-setup();
+
+
+<style>
+  code { display: block; margin: 10px 0; padding: 0; background: #e1e1e1; white-space: normal; }
+  code code { background: #c1c1c1; }
+  code code code { background: #a1a1a1; }
+</style>
+
+  <h1><a href="https://github.com/iamkeir/fraction-grid" title="View on Github">Fraction Grid</a></h1>
+
+  <p>Fraction-based fluid width grid with fixed width gutters. Fractions rather than columns because fractions will always be true, accurate and predictable regardless of nesting - and offers freedom to change the number of columns on the fly.</p>
+
+  <p>Inspired by <a href="http://builtbyboon.com/blog/proportional-grids">http://builtbyboon.com/blog/proportional-grids</a></p>
+
+  <p><em><strong>Note:</strong> classes are for demonstration only - for semantic grid, use mixins or roll your own class sets.</em></p>
+
+  <hr />
+
+  <h3>Example</h3>
+
+  <p>Using divisible fractions to stay 'on-grid', or non-divisible to go 'off-grid'.</p>
+
+  <div class="grid">
+    <div class="col-1-4"><code>1-4</code></div><div class="col-3-4"><code>3-4</code></div>
+    <div class="col-1-3"><code>1-3</code></div><div class="col-2-3"><code>2/3</code></div>
+    <div class="col-1-2"><code>1-2</code></div><div class="col-1-2"><code>1-2</code></div>
+  </div>
+
+  <hr />
+
+  <h3>Infinite nesting</h3>
+
+  <div class="grid">
+    <div class="col">
+      <code>
+        1-1
+        <div class="grid">
+          <div class="col-1-2">
+            <code>
+              1-2
+              <div class="grid">
+                <div class="col-1-3"><code>1-3</code></div>
+                <div class="col-1-3"><code>1-3</code></div>
+                <div class="col-1-3"><code>1-3</code></div>
+              </div>
+            </code>
+          </div>
+          <div class="col-1-2">
+            <code>
+              1-2
+              <div class="grid">
+                <div class="col-1-2"><code>1-2</code></div>
+                <div class="col-1-2"><code>1-2</code></div>
+              </div>
+            </code>
+          </div>
+        </div>
+      </code>
+    </div>
+  </div>
+
+  <hr />
+
+  <h3>Offsets</h3>
+
+  <div class="grid">
+    <div class="col-1-2 push-1-2"><code>1-2, push 1-2 (1st)</code></div>
+    <div class="col-1-4 pull-1-4"><code>1-4, pull 1-4 (2nd)</code></div>
+    <div class="col-1-4 pull-3-4"><code>1-4, pull 3-4 (3rd)</code></div>
+  </div>
+
+  <hr />
+
+  <h3>Adjustable gutters</h3>
+
+  <div class="grid grid-gutter-default">
+    <div class="col-1-2"><code>default</code></div><div class="col-1-2"><code>default</code></div>
+  </div>
+
+  <div class="grid grid-gutter-half">
+    <div class="col-1-2"><code>half</code></div><div class="col-1-2"><code>half</code></div>
+  </div>
+
+  <div class="grid grid-gutter-double">
+    <div class="col-1-2"><code>double</code></div><div class="col-1-2"><code>double</code></div>
+  </div>
+
+  <div class="grid grid-gutter-none">
+    <div class="col-1-2"><code>none</code></div><div class="col-1-2"><code>none</code></div>
+  </div>
+
+  <hr />
+
+  <h3>Responsive</h3>
+
+  <div class="responsive-grid">
+    <div class="responsive-grid-col"><code>12/12, 6/12, 3-12</code></div>
+    <div class="responsive-grid-col"><code>12/12, 6/12, 3-12</code></div>
+    <div class="responsive-grid-col"><code>12/12, 6/12, 3-12</code></div>
+    <div class="responsive-grid-col"><code>12/12, 6/12, 3-12</code></div>
+  </div>
+  
+  // EXPERIMENTAL
+
+  // Breakpoint codes
+  $breakpoints: (
+    0:0, // start
+    m: $bp-mobile-min,
+    mw: $bp-mobile-wide-min,
+    p: $bp-phablet-min,
+    pw: $bp-phablet-wide-min,
+    t: $bp-tablet-min,
+    tw: $bp-tablet-wide-min,
+    d: $site-max-width
+  );
+
+  // Responsive CSS property helper (EXPERIMENTAL)
+  // Example usage: .breakpoints-css-test { @include breakpoints-css(padding-bottom, (m:25px, t:40px)); }
+  @mixin breakpoints-css($property, $value-map, $breakpoint-map: $breakpoints) {
+    @each $value-bp, $value in $value-map { // for each breakpoint code, value combo
+      @if map-has-key($breakpoint-map, $value-bp) { // if breakpoint exists in global map
+        $property-breakpoint: map-get($breakpoint-map, $value-bp); // get breakpoint width
+        @include respond-min($property-breakpoint) { // output media query
+          @if $property == font-size-rem { // if special font size mode
+            @include fs-rem($value);
+          } @elseif str-index($property, vspace) {
+            @if $property == vspace or $property == vspace-top { padding-top: $value; }
+            @if $property == vspace or $property == vspace-bottom { padding-bottom: $value; }
+          } @else { // else standard prop: value
+            #{$property}: $value;
+          }
+        }
+      } @else {
+        @warn "No breakpoint key '#{$value-bp}', skipped."; // if breakpoint code doesn't exist, whinge
+      }
+    }
+  }
